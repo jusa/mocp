@@ -75,6 +75,8 @@ EXTRA_mocp_SOURCES = \
 		     oss.h \
 		     alsa.c \
 		     alsa.h \
+		     pulse.c \
+		     pulse.h \
 		     io_curl.c \
 		     io_curl.h \
 		     jack.c \

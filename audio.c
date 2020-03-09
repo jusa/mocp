@@ -47,6 +47,9 @@
 #ifdef HAVE_JACK
 # include "jack.h"
 #endif
+#ifdef HAVE_PULSE
+# include "pulse.h"
+#endif
 
 #include "softmixer.h"
 #include "equalizer.h"
@@ -876,6 +879,15 @@ static void find_working_driver (lists_t_strs *drivers, struct hw_funcs *funcs)
 		const char *name;
 
 		name = lists_strs_at (drivers, ix);
+
+#ifdef HAVE_PULSE
+		if (!strcasecmp(name, "pulse")) {
+			pulse_funcs (funcs);
+			printf ("Trying PULSEAUDIO...\n");
+			if (funcs->init(&hw_caps))
+				return;
+		}
+#endif
 
 #ifdef HAVE_SNDIO
 		if (!strcasecmp(name, "sndio")) {
